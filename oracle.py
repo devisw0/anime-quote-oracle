@@ -72,7 +72,6 @@ DATA: List[Tuple[str, str]] = [
     ("Thank you for a truly fun fight.", "Hunter × Hunter"), # - Isaac Netero
     ("My name is Meruem.", "Hunter × Hunter") # - Meruem
     
-
 ]
 
 LABELS = sorted({lbl for _, lbl in DATA}) #{} indicate a set comprehension, adds lbl each itteration to set

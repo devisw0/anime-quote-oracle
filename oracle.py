@@ -11,68 +11,156 @@ from sklearn.metrics import accuracy_score, classification_report
 # ---------- 1) DATA ----------
 # TODO: create a small list[tuple[str, str]] where each tuple is (text, label)
 # Start with ~3-4 short lines per show for: Naruto, JoJo, AOT, One Piece, Demon Slayer
+
+
+# DESIGN GUIDELINES FOR DISTINCTIVE ANIME QUOTES:
+# 1. Use character names (Goku, Luffy, Naruto, Deku, Eren, Jotaro)
+# 2. Use unique terminology (Sharingan, Kamehameha, Devil Fruit, Stand, Quirk, Titan)
+# 3. Use location names (Konoha, Grand Line, UA Academy, Wall Maria)
+# 4. Avoid generic action words (fight, power, strong, battle)
+# 5. Avoid common sentence structures ("I will become...")
+# 6. Include unique sounds/catchphrases (Dattebayo, Ora, Plus Ultra)
+
+
 DATA: List[Tuple[str, str]] = [
-    # ("shadow clones ramen training", "Naruto"),
-    # ("summon my stand ora ora", "JoJo"),
-    # ...
-    ("Dattebayo","Naruto"),
-    ("For those who don't believe in themselves, hardwork is worthless!", "Naruto"), #Might Guy,
-    ("That is my ninja way!", "Naruto"),
-    ("Believe it!", "Naruto"),
-    ("Hard work is worthless for those that don't believe in themselves", "Naruto"),
-    ("Im gonna be Hokage", "Naruto"),
-    ("Those who break the rules are scum, but those who abandon their friends are worse than scum.", "Naruto"),
-
-    ("Daga, kotowaru.", "Jojo's Bizarre Adventure"),
-    ("I refuse", "Jojo's Bizarre Adventure"),
-    ("I reject my humanity Jojo!", "Jojo's Bizarre Adventure"),
-    ("It was me, DIO!", "Jojo's Bizarre Adventure"),
-    ("ORA ORA ORA ORA!", "Jojo's Bizarre Adventure"),
-    ("MUDA MUDA MUDA MUDA!", "Jojo's Bizarre Adventure"),
-    ("Your next line is...", "Jojo's Bizarre Adventure"),
-
-    ("Im gonna be the king of the Pirates!", "One Piece"),
-    ("I want to live!", "One Piece"),
-    ("Nothing Happened.", "One Piece"),
-    ("People's dreams... never end!", "One Piece"),
-    ("I’m going to be the world’s greatest swordsman!", "One Piece"),
-
-    ("It's over 9000!", "Dragon Ball"),
-    ("Kamehameha!", "Dragon Ball"),
-    ("I am the Prince of all Saiyans", "Dragon Ball"),
-    ("This isn't even my final form", "Dragon Ball"),
-    ("Final Flash!", "Dragon Ball"),
-
-    ("I'll become the Wizard King!", "Black Clover"),
-    ("Surpass your limits. Right now.", "Black Clover"), #- Yami Sukehiro
-    ("My magic is never giving up!", "Black Clover"), # - Asta
-    ("I’ll surpass you, Asta.", "Black Clover"), # - Yuno
-    ("I’ll become someone who can protect everyone!", "Black Clover"), # - Asta
-    ("Black Bulls, move out!", "Black Clover"), # - Yami Sukehiro
-
-    ("If you have time to fantasize about a beautiful end, then live beautifully until the end.", "Gintama"), # - Gintoki Sakata
-    ("The country? The world? Those are big words. I just want to protect what’s in front of me.", "Gintama"), # - Gintoki Sakata
-    ("Even if we’re Shonen Jump protagonists, we still get hit by cars.", "Gintama"), #- Gintoki Sakata
-    ("You yourself have to change first, or nothing will change for you.", "Gintama"), # - Gintoki Sakata
-
-    ("Go beyond! Plus Ultra!", "My Hero Academia"), # - All Might
-    ("I am here!", "My Hero Academia"), # - All Might
-    ("You can become a hero.", "My Hero Academia"), # - All Might
-    ("United States of Smash!", "My Hero Academia"), # - All Might
-
-    ("If you win, you live. If you lose, you die. If you don’t fight, you can’t win!", "Attack on Titan"), # - Eren Yeager
-    ("This world is cruel and merciless, but it’s also very beautiful.", "Attack on Titan"), # - Mikasa Ackerman
-    ("Shinzō wo sasageyo!", "Attack on Titan"), # - Erwin Smith / Survey Corps
-    ("On that day, humanity received a grim reminder…", "Attack on Titan"), # - Narration
-    ("I want to keep moving forward until I destroy my enemies.", "Attack on Titan"), # - Eren Yeager
-
-    ("You should enjoy the little detours. That’s where you’ll find the things more important than what you want.", "Hunter × Hunter"), # - Ging Freecss
-    ("If I ignore a friend I have the ability to help, wouldn’t I be betraying him?", "Hunter × Hunter"), # - Killua Zoldyck
-    ("Bungee Gum possesses the properties of both rubber and gum.", "Hunter × Hunter"),# - Hisoka Morow
-    ("Thank you for a truly fun fight.", "Hunter × Hunter"), # - Isaac Netero
-    ("My name is Meruem.", "Hunter × Hunter") # - Meruem
+    ("Dattebayo", "Naruto"),
+    ("Sasuke activated his Sharingan", "Naruto"),
+    ("Hokage protects Konoha village", "Naruto"),
+    ("Rasengan spiral chakra technique", "Naruto"),
+    ("Nine-tails Kurama fox demon", "Naruto"),
+    ("Akatsuki organization hunts bijuu", "Naruto"),
+    ("Chidori lightning blade jutsu", "Naruto"),
+    ("Byakugan Hyuga clan bloodline", "Naruto"),
+    ("Hidden Leaf genin graduation", "Naruto"),
+    ("Itachi Uchiha clan massacre", "Naruto"),
+    ("Sage Mode natural energy", "Naruto"),
+    ("Kakashi sensei teaches team", "Naruto"),
+    ("Orochimaru snake sannin villain", "Naruto"),
+    ("Hinata loves Naruto Uzumaki", "Naruto"),
+    ("Shikamaru shadow jutsu strategy", "Naruto"),
+    ("Gaara sand village kazekage", "Naruto"),
+    ("Tsunade fifth hokage gambler", "Naruto"),
+    ("Jiraiya pervy sage author", "Naruto"),
+    ("Madara Uchiha final boss", "Naruto"),
+    ("Boruto next generation sequel", "Naruto"),
     
+    # Dragon Ball - Focus on: Saiyan, Goku, Vegeta, ki, Kamehameha, planet names
+    ("Goku transforms Super Saiyan", "Dragon Ball"),
+    ("Vegeta Prince of Saiyans", "Dragon Ball"),
+    ("Kamehameha energy wave attack", "Dragon Ball"),
+    ("Frieza destroyed Planet Vegeta", "Dragon Ball"),
+    ("Piccolo Namekian green warrior", "Dragon Ball"),
+    ("Gohan half-saiyan hybrid", "Dragon Ball"),
+    ("Trunks future timeline warrior", "Dragon Ball"),
+    ("Cell android perfect form", "Dragon Ball"),
+    ("Majin Buu pink destruction", "Dragon Ball"),
+    ("Beerus God of Destruction", "Dragon Ball"),
+    ("Whis angel martial arts", "Dragon Ball"),
+    ("Bulma Capsule Corp scientist", "Dragon Ball"),
+    ("Krillin bald human fighter", "Dragon Ball"),
+    ("Master Roshi turtle hermit", "Dragon Ball"),
+    ("Shenron dragon grants wishes", "Dragon Ball"),
+    ("Yamcha baseball desert bandit", "Dragon Ball"),
+    ("Tien three-eyed martial artist", "Dragon Ball"),
+    ("Chiaotzu small psychic fighter", "Dragon Ball"),
+    ("Raditz Goku brother saiyan", "Dragon Ball"),
+    ("Nappa bald saiyan elite", "Dragon Ball"),
+    
+    # One Piece - Focus on: Luffy, pirates, Devil Fruit, Grand Line, crew names
+    ("Luffy rubber Gomu Gomu", "One Piece"),
+    ("Zoro three sword santoryu", "One Piece"),
+    ("Nami navigator weather witch", "One Piece"),
+    ("Sanji black leg cook", "One Piece"),
+    ("Chopper reindeer doctor", "One Piece"),
+    ("Robin archaeology Ohara survivor", "One Piece"),
+    ("Franky cyborg shipwright", "One Piece"),
+    ("Brook skeleton musician", "One Piece"),
+    ("Jinbe fishman helmsman", "One Piece"),
+    ("Shanks red hair yonko", "One Piece"),
+    ("Whitebeard strongest man alive", "One Piece"),
+    ("Blackbeard darkness logia fruit", "One Piece"),
+    ("Ace fire fist portgas", "One Piece"),
+    ("Sabo revolutionary army chief", "One Piece"),
+    ("Kaido strongest creature beast", "One Piece"),
+    ("Big Mom charlotte linlin", "One Piece"),
+    ("Doflamingo string heavenly demon", "One Piece"),
+    ("Crocodile sand warlord baroque", "One Piece"),
+    ("Enel lightning god skypiea", "One Piece"),
+    ("Going Merry thousand sunny", "One Piece"),
+    
+    # My Hero Academia - Focus on: Deku, All Might, Quirks, UA Academy, hero names
+    ("Deku One For All", "My Hero Academia"),
+    ("All Might Symbol of Peace", "My Hero Academia"),
+    ("Bakugo explosion quirk kacchan", "My Hero Academia"),
+    ("Todoroki fire ice quirk", "My Hero Academia"),
+    ("Iida engine quirk ingenium", "My Hero Academia"),
+    ("Uraraka zero gravity quirk", "My Hero Academia"),
+    ("Aizawa erasure quirk eraser", "My Hero Academia"),
+    ("Shigaraki decay quirk villain", "My Hero Academia"),
+    ("UA Academy hero course", "My Hero Academia"),
+    ("All For One villain master", "My Hero Academia"),
+    ("Endeavor flame hero number", "My Hero Academia"),
+    ("Hawks wing hero commission", "My Hero Academia"),
+    ("Mirko rabbit hero", "My Hero Academia"),
+    ("Best Jeanist fiber hero", "My Hero Academia"),
+    ("Midnight sleep quirk hero", "My Hero Academia"),
+    ("Present Mic voice quirk", "My Hero Academia"),
+    ("Recovery Girl healing quirk", "My Hero Academia"),
+    ("Nezu principal intelligent animal", "My Hero Academia"),
+    ("Toga blood transform quirk", "My Hero Academia"),
+    ("Dabi blue flame quirk", "My Hero Academia"),
+    
+    # Attack on Titan - Focus on: Eren, titans, walls, Survey Corps, Eldian/Marley
+    ("Eren Yeager founding titan", "Attack on Titan"),
+    ("Mikasa Ackerman scarf red", "Attack on Titan"),
+    ("Armin Colossal titan intelligence", "Attack on Titan"),
+    ("Levi Ackerman humanity strongest", "Attack on Titan"),
+    ("Survey Corps wings freedom", "Attack on Titan"),
+    ("Wall Maria Rose Sina", "Attack on Titan"),
+    ("Colossal Titan Bertholdt", "Attack on Titan"),
+    ("Armored Titan Reiner", "Attack on Titan"),
+    ("Beast Titan Zeke monkey", "Attack on Titan"),
+    ("Female Titan Annie crystal", "Attack on Titan"),
+    ("Jaw Titan Porco Marcel", "Attack on Titan"),
+    ("Cart Titan Pieck quadruped", "Attack on Titan"),
+    ("War Hammer Titan crystal", "Attack on Titan"),
+    ("Eldian devil island paradis", "Attack on Titan"),
+    ("Marley warrior program", "Attack on Titan"),
+    ("Paths coordinate ymir fritz", "Attack on Titan"),
+    ("Rumbling wall titans march", "Attack on Titan"),
+    ("ODM gear maneuver equipment", "Attack on Titan"),
+    ("Shiganshina district hometown", "Attack on Titan"),
+    ("Grisha Yeager basement key", "Attack on Titan"),
+    
+    # Jojo - Focus on: Stand names, Ora/Muda, Joestar, DIO, bizarre
+    ("Jotaro Star Platinum ora", "Jojo's Bizarre Adventure"),
+    ("DIO World time stop", "Jojo's Bizarre Adventure"),
+    ("Joseph Hermit Purple hamon", "Jojo's Bizarre Adventure"),
+    ("Josuke Crazy Diamond restoration", "Jojo's Bizarre Adventure"),
+    ("Giorno Golden Experience requiem", "Jojo's Bizarre Adventure"),
+    ("Jolyne Stone Free string", "Jojo's Bizarre Adventure"),
+    ("Jonathan hamon breathing ripple", "Jojo's Bizarre Adventure"),
+    ("Kakyoin Hierophant Green emerald", "Jojo's Bizarre Adventure"),
+    ("Polnareff Silver Chariot sword", "Jojo's Bizarre Adventure"),
+    ("Avdol Magician Red fire", "Jojo's Bizarre Adventure"),
+    ("Iggy Fool sand dog", "Jojo's Bizarre Adventure"),
+    ("Kira Yoshikage Killer Queen", "Jojo's Bizarre Adventure"),
+    ("Diavolo King Crimson time", "Jojo's Bizarre Adventure"),
+    ("Pucci Made in Heaven acceleration", "Jojo's Bizarre Adventure"),
+    ("Valentine Dirty Deeds Done", "Jojo's Bizarre Adventure"),
+    ("Speedwagon Foundation research organization", "Jojo's Bizarre Adventure"),
+    ("Pillar Men ultimate lifeform", "Jojo's Bizarre Adventure"),
+    ("Arrow stand virus evolution", "Jojo's Bizarre Adventure"),
+    ("Bizarre adventure Joestar bloodline", "Jojo's Bizarre Adventure"),
+    ("Muda muda muda useless", "Jojo's Bizarre Adventure"),
 ]
+
+# QUALITY CHECK GUIDELINES:
+# - Every quote should contain at least 2 unique identifiers for its anime
+# - No quote should be comprehensible without anime knowledge  
+# - Character names should appear in most quotes
+# - Avoid quotes that could logically belong to multiple anime
+# - Test: "Could someone guess the anime from this quote alone?"
 
 LABELS = sorted({lbl for _, lbl in DATA}) #{} indicate a set comprehension, adds lbl each itteration to set
 
@@ -83,9 +171,57 @@ def show_label_counts():
 # ---------- 2) MODEL PIPELINE ----------
 # We’ll add scikit-learn bits after we confirm the dataset is fine.
 
+
+def train_and_eval(DATA):
+
+    #scikit: create object -> fit -> predict
+    
+    quotelist = [quote for quote,_ in DATA]
+    print(len(quotelist))
+    animelist = [animename for _,animename in DATA]
+    print(len(animelist))
+
+    #splitting to training and testing data
+    X_train, X_test, y_train, y_test = train_test_split(quotelist,animelist,test_size=0.25,stratify=animelist, random_state=42 )
+    print(f"The lenght training Data for our X is {len(X_train)} and for the test data it is {len(X_test)}")
+    print(f"The count of our animes in the Training set is {Counter(y_train)} and for Testing set is {Counter(y_test)}")
+
+    #vectorizing our x (rows or the quotes) and turns it into a matrix (vectorized quote , unigram/bigram and the cell values contain a number of how important the term is to the quote)
+    myvectorization = TfidfVectorizer(ngram_range=(1,2), max_df=0.95, min_df = 1, stop_words=None)
+
+    mymodel = LogisticRegression(max_iter=2000, C=0.5, class_weight='balanced')
+
+    pipe = Pipeline([("tfidf", myvectorization), ("clf", mymodel)])
+    pipe.fit(X_train, y_train)
+    preds = pipe.predict(X_test)
+
+    print(accuracy_score(y_test, preds))
+    print(classification_report(y_test, preds, digits=3))
+    #Precision asks: "When the model predicted this anime, how often was it right?"
+    #Recall: "Of all the actual Dragon Ball quotes in the test set, how many did the model successfully identify?"
+
+    # After training, check what the model learned
+    def analyze_predictions(pipe, X_test, y_test):
+        predictions = pipe.predict(X_test)
+        probabilities = pipe.predict_proba(X_test)
+        
+        print("Detailed predictions:")
+        for i, (quote, actual, predicted) in enumerate(zip(X_test, y_test, predictions)):
+            max_prob = max(probabilities[i])
+            print(f"Quote: '{quote[:30]}...'")
+            print(f"  Actual: {actual}, Predicted: {predicted}, Confidence: {max_prob:.3f}")
+            if actual != predicted:
+                print(f"  ERROR!")
+            print()
+
+    # Add this after your current training code
+    analyze_predictions(pipe, X_test, y_test)
+
+
 def main():
     show_label_counts()
     # TODO later: call train(), eval(), then launch REPL
 
 if __name__ == "__main__":
-    main()
+    # main()
+    train_and_eval(DATA)
